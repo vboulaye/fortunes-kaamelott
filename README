@@ -1,0 +1,23 @@
+# Kaamelott fortunes
+
+Generates a [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix)) package file from the Kaamelott quotes in [wikiquote](ihttps://fr.wikiquote.org/wiki/Kaamelott)
+
+to get a quote use `fortune kaamelott`
+
+# install
+
+```
+./configure 
+make 
+make install
+```
+
+# development
+
+```
+aclocal # Set up an m4 environment
+autoconf # Generate configure from configure.ac
+./configure # Generate Makefile from Makefile.in
+make distcheck # Use Makefile to build and test a tarball to distribute
+```
+

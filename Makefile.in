@@ -1,0 +1,26 @@
+CURL=@CURL@
+JQ=@JQ@
+HTML2TEXT=@HTML2TEXT@
+STRFILE=@STRFILE@
+
+all: kaamelott kaamelott.dat
+
+install: all
+	cp kaamelott kaamelott.dat /usr/share/games/fortunes/ 
+
+kaamelott.dat: kaamelott 
+	$(STRFILE) -c % kaamelott kaamelott.dat
+
+kaamelott: kaamelott.json
+	$(JQ) -r '.parse.text."*"' kaamelott.json | \
+		grep '<div class="citation">' | \
+		$(HTML2TEXT) -style compact -utf8 -width 10000 | \
+		sed  -e '/^$$/ d' -e '/[^ ]*/ a %' > kaamelott
+
+kaamelott.json:
+	$(CURL) "https://fr.wikiquote.org/w/api.php?page=Kaamelott&action=parse&prop=text&format=json" > kaamelott.json
+
+clean:
+	rm kaamelott kaamelott.dat kaamelott.json
+
+.PHONY: all clean
