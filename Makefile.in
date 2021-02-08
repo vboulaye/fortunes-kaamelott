@@ -1,26 +1,36 @@
+
+QUOTES=Kaamelott Pierre_Desproges
+
 CURL=@CURL@
 JQ=@JQ@
 HTML2TEXT=@HTML2TEXT@
 STRFILE=@STRFILE@
 
-all: kaamelott kaamelott.dat
+FORTUNES_DIR=/usr/share/games/fortunes
+
+all: $(QUOTES:=.dat)
 
 install: all
-	cp kaamelott kaamelott.dat /usr/share/games/fortunes/ 
+	for quote in $(QUOTES);do \
+		cp "$$quote.quote" $(FORTUNES_DIR)/$$(echo $$quote | tr '[:upper:]' '[:lower:]' ); \
+		cp "$$quote.dat" $(FORTUNES_DIR)/$$(echo $$quote | tr '[:upper:]' '[:lower:]' ).dat; \
+	done 
 
-kaamelott.dat: kaamelott 
-	$(STRFILE) -c % kaamelott kaamelott.dat
+%.dat: %.quote
+	$(STRFILE) -c % "$<" "$(@)"
 
-kaamelott: kaamelott.json
-	$(JQ) -r '.parse.text."*"' kaamelott.json | \
+%.quote: %.json
+	$(JQ) -r '.parse.text."*"' "$<" | \
 		grep '<div class="citation">' | \
 		$(HTML2TEXT) -style compact -utf8 -width 10000 | \
-		sed  -e '/^$$/ d' -e '/[^ ]*/ a %' > kaamelott
+		sed  -e 's/^[ \t]*//' -e '/^$$/ d' -e '/.*/ a %' > "$(@)"
 
-kaamelott.json:
-	$(CURL) "https://fr.wikiquote.org/w/api.php?page=Kaamelott&action=parse&prop=text&format=json" > kaamelott.json
+%.json:
+	$(CURL) "https://fr.wikiquote.org/w/api.php?page=$(@:.json=)&action=parse&prop=text&format=json" > "$(@)"
+
 
 clean:
-	rm kaamelott kaamelott.dat kaamelott.json
+	rm -f *.quote *.dat *.json
 
-.PHONY: all clean
+.PHONY: all clean *.quote
+.PRECIOUS: %.quote %.dat

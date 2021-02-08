@@ -1,8 +1,9 @@
 # Kaamelott fortunes
 
-Generates a [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix)) package file from the Kaamelott quotes in [wikiquote](ihttps://fr.wikiquote.org/wiki/Kaamelott)
+Generates a [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix)) package file from the the french quotes in [wikiquote](https://fr.wikiquote.org/wiki)
+By defaults it builds fortune files for Kaamelott and Pierre Desproges. his can be changed in the Makefile.
 
-to get a quote use `fortune kaamelott`
+to get a quote use `fortune kaamelott` or `fortune kaamelott pierre_desproges`
 
 # install
 

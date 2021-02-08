@@ -1702,6 +1702,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # Checks for programs.
+
 # Extract the first word of "curl", so it can be a program name with args.
 set dummy curl; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -1741,6 +1742,10 @@ else
 $as_echo "no" >&6; }
 fi
 
+
+if test x"$CURL" = x; then :
+  as_fn_error $? "Please install curl before configuring." "$LINENO" 5
+fi
 
 # Extract the first word of "jq", so it can be a program name with args.
 set dummy jq; ac_word=$2
@@ -1782,6 +1787,10 @@ $as_echo "no" >&6; }
 fi
 
 
+if test x"$JQ" = x; then :
+  as_fn_error $? "Please install jq before configuring." "$LINENO" 5
+fi
+
 # Extract the first word of "html2text", so it can be a program name with args.
 set dummy html2text; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -1822,6 +1831,10 @@ $as_echo "no" >&6; }
 fi
 
 
+if test x"$HTML2TEXT" = x; then :
+  as_fn_error $? "Please install html2text before configuring." "$LINENO" 5
+fi
+
 # Extract the first word of "strfile", so it can be a program name with args.
 set dummy strfile; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -1859,6 +1872,11 @@ $as_echo "$STRFILE" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
+fi
+
+
+if test x"$STRFILE" = x; then :
+  as_fn_error $? "Please install strfile before configuring (from the fortunes package)." "$LINENO" 5
 fi
 
 

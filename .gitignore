@@ -1,6 +1,8 @@
 
 Makefile
-kaamelott*
+*.dat
+*.quote
+*.json
 autom4te.cache
 config.status
 config.log
